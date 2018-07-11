@@ -30,28 +30,37 @@ void Clesson05Dlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(Clesson05Dlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_ADD, &Clesson05Dlg::OnBnClickedAdd)
+	ON_BN_CLICKED(IDC_SUB, &Clesson05Dlg::OnBnClickedSub)
+	ON_BN_CLICKED(IDC_MUL, &Clesson05Dlg::OnBnClickedMul)
+	ON_BN_CLICKED(IDC_DIVI, &Clesson05Dlg::OnBnClickedDivi)
+	ON_COMMAND(ID_MENU_CANCEL, &Clesson05Dlg::OnMenuCancel)
 END_MESSAGE_MAP()
 
 
-// Clesson05Dlg 消息处理程序
-
+/*****************************************************
+	part 3 系统自动接管这些消息
+	1)	WM_INITDIALG
+	2)	WM_COMMAND
+	3)	IDOK
+	4)	IDCANCEL
+*****************************************************/
+void Clesson05Dlg::OnOK()
+{
+}
+void Clesson05Dlg::OnCancel()
+{
+	CDialog::OnCancel();
+}
 BOOL Clesson05Dlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	// 设置此对话框的图标。  当应用程序主窗口不是对话框时，框架将自动
-	//  执行此操作
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
-	// TODO: 在此添加额外的初始化代码
-
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
-
-// 如果向对话框添加最小化按钮，则需要下面的代码
-//  来绘制该图标。  对于使用文档/视图模型的 MFC 应用程序，
-//  这将由框架自动完成。
 
 void Clesson05Dlg::OnPaint()
 {
@@ -78,10 +87,65 @@ void Clesson05Dlg::OnPaint()
 	}
 }
 
-//当用户拖动最小化窗口时系统调用此函数取得光标
-//显示。
 HCURSOR Clesson05Dlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+void Clesson05Dlg::OnBnClickedAdd()
+{
+	CString tmp;
+	GetDlgItemText(IDC_LPARAM1, tmp);
+	double fleft = _tstof(tmp);
+	GetDlgItemText(IDC_RPARAM1, tmp);
+	double fright = _tstof(tmp);
+	tmp.Format(_T("%lf"), fleft + fright);
+	SetDlgItemText(IDC_RESULT1, tmp);
+}
+
+
+void Clesson05Dlg::OnBnClickedSub()
+{
+	CString tmp;
+	GetDlgItemText(IDC_LPARAM2, tmp);
+	double fleft = _tstof(tmp);
+	GetDlgItemText(IDC_RPARAM2, tmp);
+	double fright = _tstof(tmp);
+	tmp.Format(_T("%lf"), fleft - fright);
+	SetDlgItemText(IDC_RESULT2, tmp);
+}
+
+
+void Clesson05Dlg::OnBnClickedMul()
+{
+	CString tmp;
+	GetDlgItemText(IDC_LPARAM3, tmp);
+	double fleft = _tstof(tmp);
+	GetDlgItemText(IDC_RPARAM3, tmp);
+	double fright = _tstof(tmp);
+	tmp.Format(_T("%lf"), fleft * fright);
+	SetDlgItemText(IDC_RESULT3, tmp);
+}
+
+
+void Clesson05Dlg::OnBnClickedDivi()
+{
+	CString tmp;//, tmp_right, tmp_result;
+	GetDlgItemText(IDC_LPARAM4, tmp);
+	double fleft = _tstof(tmp);
+	GetDlgItemText(IDC_RPARAM4, tmp);
+	double fright = _tstof(tmp);
+	if (0 == fright)
+	{
+		SetDlgItemText(IDC_RESULT4, _T("被除数不能为0或为空"));
+		return;
+	}
+	tmp.Format(_T("%lf"), fleft / fright);
+	SetDlgItemText(IDC_RESULT4, tmp);
+}
+
+
+void Clesson05Dlg::OnMenuCancel()
+{
+	CDialog::OnCancel();
+}

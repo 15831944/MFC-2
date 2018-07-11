@@ -441,6 +441,7 @@ void OnLogin(_In_ HWND   hwndDlg)
 	if (0 != _tcscmp(tmp_key, _T("admin")) && 0 != _tcscmp(tmp_name, _T("admin")))
 	{
 		MessageBox(hwndDlg, _T(" Accounts errors!"), _T("Error"), NULL);
+		return;
 	}
 	EndDialog(hwndDlg, ID_EXIT);
 }
@@ -476,7 +477,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrev, LPSTR lpCmd, int nCmdSh
 	//第一个是资源总管, 第二个是自己的DLG_ID, 第三个是父窗口, 第四个是回调函数
 	//第四个参数, 窗口的一系列操作都由回调函数去执行
 
-	if (ID_EXIT == DialogBox(hInstance, (LPCTSTR)IDD_LOGIN_DIALOG, NULL, LoginCallBack))
+	if (IDCANCEL == DialogBox(hInstance, (LPCTSTR)IDD_LOGIN_DIALOG, NULL, LoginCallBack))
 	{
 		return 0;
 	}

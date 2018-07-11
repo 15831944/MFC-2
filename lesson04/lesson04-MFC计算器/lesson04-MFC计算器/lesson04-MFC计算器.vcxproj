@@ -211,6 +211,7 @@
     <Image Include="..\Debug\test.jpg" />
     <Image Include="res\bitmap1.bmp" />
     <Image Include="res\lesson04-MFC计算器.ico" />
+    <Image Include="verisign.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

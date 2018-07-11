@@ -1,14 +1,8 @@
-
-// lesson05Dlg.h : 头文件
-//
-
 #pragma once
 
-
-// Clesson05Dlg 对话框
 class Clesson05Dlg : public CDialogEx
 {
-// 构造
+
 public:
 	Clesson05Dlg(CWnd* pParent = NULL);	// 标准构造函数
 
@@ -30,4 +24,12 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+public:
+	void OnOK();
+	void OnCancel();
+	afx_msg void OnBnClickedAdd();
+	afx_msg void OnBnClickedSub();
+	afx_msg void OnBnClickedMul();
+	afx_msg void OnBnClickedDivi();
+	afx_msg void OnMenuCancel();
 };
