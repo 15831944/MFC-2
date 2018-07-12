@@ -1,7 +1,3 @@
-
-// lesson05Dlg.cpp : 实现文件
-//
-
 #include "stdafx.h"
 #include "lesson05.h"
 #include "lesson05Dlg.h"
@@ -10,11 +6,6 @@
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
-
-
-// Clesson05Dlg 对话框
-
-
 
 Clesson05Dlg::Clesson05Dlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(IDD_LESSON05_DIALOG, pParent)
@@ -55,10 +46,8 @@ void Clesson05Dlg::OnCancel()
 BOOL Clesson05Dlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
-
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
-
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -67,9 +56,7 @@ void Clesson05Dlg::OnPaint()
 	if (IsIconic())
 	{
 		CPaintDC dc(this); // 用于绘制的设备上下文
-
 		SendMessage(WM_ICONERASEBKGND, reinterpret_cast<WPARAM>(dc.GetSafeHdc()), 0);
-
 		// 使图标在工作区矩形中居中
 		int cxIcon = GetSystemMetrics(SM_CXICON);
 		int cyIcon = GetSystemMetrics(SM_CYICON);
@@ -77,7 +64,6 @@ void Clesson05Dlg::OnPaint()
 		GetClientRect(&rect);
 		int x = (rect.Width() - cxIcon + 1) / 2;
 		int y = (rect.Height() - cyIcon + 1) / 2;
-
 		// 绘制图标
 		dc.DrawIcon(x, y, m_hIcon);
 	}

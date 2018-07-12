@@ -58,6 +58,7 @@ BOOL Clesson05App::InitInstance()
 		return FALSE;
 	nResponse = dlg.DoModal();
 	return FALSE;
+
 }
 
 

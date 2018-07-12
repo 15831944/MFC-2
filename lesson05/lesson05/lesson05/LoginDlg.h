@@ -18,10 +18,13 @@ public:
 #endif
 
 protected:
+	virtual BOOL OnInitDialog();
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV Ö§³Ö
 
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedLogin();
 	afx_msg void OnBnClickedCancel();
+	afx_msg void OnEnChangeEdit1();
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 };
