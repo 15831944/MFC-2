@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{309D598A-498A-4058-801F-5398622A9065}</ProjectGuid>
-    <RootNamespace>TestDlg</RootNamespace>
+    <ProjectGuid>{959DB791-1F63-4BCB-A46A-4CAA85A3A145}</ProjectGuid>
+    <RootNamespace>MamyTest</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
     <Keyword>MFCProj</Keyword>
   </PropertyGroup>
@@ -185,36 +185,37 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pointx.h" />
-    <ClInclude Include="rectx.h" />
+    <ClInclude Include="MamyTest.h" />
+    <ClInclude Include="MamyTestDlg.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="TestDlg.h" />
-    <ClInclude Include="TestDlgDlg.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pointx.cpp" />
-    <ClCompile Include="rectx.cpp" />
+    <ClCompile Include="MamyTest.cpp" />
+    <ClCompile Include="MamyTestDlg.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="TestDlg.cpp" />
-    <ClCompile Include="TestDlgDlg.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="TestDlg.rc" />
+    <ResourceCompile Include="MamyTest.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\TestDlg.rc2" />
+    <None Include="res\MamyTest.rc2" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\TestDlg.ico" />
+    <Image Include="res\MamyTest.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="MamyTest.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

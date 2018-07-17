@@ -18,10 +18,10 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TestDlg.h">
+    <ClInclude Include="MamyTest.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="TestDlgDlg.h">
+    <ClInclude Include="MamyTestDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
@@ -33,42 +33,30 @@
     <ClInclude Include="Resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="pointx.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="rectx.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TestDlg.cpp">
+    <ClCompile Include="MamyTest.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="TestDlgDlg.cpp">
+    <ClCompile Include="MamyTestDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="pointx.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="rectx.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="TestDlg.rc">
+    <ResourceCompile Include="MamyTest.rc">
       <Filter>资源文件</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\TestDlg.rc2">
+    <None Include="res\MamyTest.rc2">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\TestDlg.ico">
+    <Image Include="res\MamyTest.ico">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

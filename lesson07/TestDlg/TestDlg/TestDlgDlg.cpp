@@ -6,6 +6,8 @@
 //============================
 
 #include "pointx.h"
+#include "rectx.h"
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -163,22 +165,60 @@ void CTestDlgDlg::OnSysCommand(UINT nID, LPARAM lParam)
 		选择自己喜欢的函数:
 		然后从CRect头文件复制过来,从CRect.cpp文件复制过来
 ********************************************************/
+/********************************************************
+	part 8 operator 基类*()
+	8)	//传对象,如果对面要的是指针,自动换指针
+		operator RECT*()
+		{
+			return this;
+		}
+********************************************************/
+/********************************************************
+	part 9 为什么要设置两个相同的函数呢?
+	9)	const只读函数:
+		void test(const CRect rect); 
+		//只读对象只能调用只读函数,保护this指针指向的数据
+		//这时候要传的参数必须的const的,所以函数会启动a.
+		//如果只读对象调用没有只读属性的函数,就会报错
+	a.	const CPoint& rectx::TopLeft()
+		{
+		return *((CPoint*)this);
+		}
+
+	b.	CPoint& rectx::TopLeft()
+		{
+		return *((CPoint*)this);
+		}
+********************************************************/
+/********************************************************
+	part 10 字符串类型
+	1)	char(窄),				wchat_t(宽),				TCHAR(自动适配)
+	2)	LPSTR(char *),			LPWSTR(wchar_t*),			LPTSTR(TCHAR*):输出型参数常用
+	3)	LPCSTR(const char*),	LPCWSTR(const wchar_t*),	LPCTSTR(const TCHAR*):保护性指针,不能修改内容(做左值)
+********************************************************/
+
 void CTestDlgDlg::OnPaint()
 {
 	//W消息:	M_PAINT
 	CPaintDC dc(this);
 	CRect rect;
-	pointx point;
+	rectx rectx;
+	pointx pointX;
 
+	GetClientRect(rectx);
 	GetClientRect(rect);
-	dc.Rectangle(rect);
+	dc.Rectangle(rectx);
 
-	point.Offset(10, 200); //自己写的类
+	pointX.Offset(10, 200); //自己写的类
 
-	dc.MoveTo(point);
-	dc.LineTo(rect.BottomRight());
-	dc.MoveTo(point);
-	dc.LineTo(rect.right, rect.top);
+	int nub = rectx.Widthx();
+
+	dc.MoveTo(pointX);
+	//rectx.Size();
+	//rectx.BottomRight();
+	dc.LineTo(rectx.BottomRight());
+	dc.MoveTo(pointX);
+	dc.LineTo(rectx.right, rectx.top);
 }
 
 HCURSOR CTestDlgDlg::OnQueryDragIcon()
