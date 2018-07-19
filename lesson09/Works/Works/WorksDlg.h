@@ -8,6 +8,13 @@
 // CWorksDlg 对话框
 class CWorksDlg : public CDialogEx
 {
+	struct SInfo
+	{
+		int nNumb;
+		TCHAR sName[20];
+		float fSala;
+		CTime tData;
+	};
 // 构造
 public:
 	CWorksDlg(CWnd* pParent = NULL);	// 标准构造函数
@@ -30,4 +37,14 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnBnClickedWorkLookup();
+	afx_msg void OnBnClickedWorkAdd();
+	afx_msg void OnBnClickedWorkDele();
+	afx_msg void OnBnClickedWorkModify();
+	afx_msg void OnBnClickedWorkSave();
+	// 检查号码是否存在
+	BOOL CheckNumber(LPCTSTR str);
+	// 文件错误集
+	void FileError(int error);
 };
