@@ -13,7 +13,8 @@ class CWorksDlg : public CDialogEx
 		int nNumb;
 		TCHAR sName[20];
 		float fSala;
-		CTime tData;
+		//CTime tData;
+		COleDateTime tData;
 	};
 // 构造
 public:
@@ -47,4 +48,10 @@ public:
 	BOOL CheckNumber(LPCTSTR str);
 	// 文件错误集
 	void FileError(int error);
+
+public:
+	afx_msg void OnBnClickedCancel();
+private:
+	int m_Row;
+	BOOL m_bModify;
 };
