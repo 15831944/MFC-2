@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{54FA4100-BAEC-4DBA-A25A-88CDDC6C0ED4}</ProjectGuid>
-    <RootNamespace>TestTM</RootNamespace>
+    <ProjectGuid>{8417047F-2799-4B3E-AD2F-D56E9595602C}</ProjectGuid>
+    <RootNamespace>Notepad</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
     <Keyword>MFCProj</Keyword>
   </PropertyGroup>
@@ -185,39 +185,37 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MyTime.h" />
+    <ClInclude Include="Notepad.h" />
+    <ClInclude Include="NotepadDlg.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="TestTM.h" />
-    <ClInclude Include="TestTMDlg.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MyTime.cpp" />
+    <ClCompile Include="Notepad.cpp" />
+    <ClCompile Include="NotepadDlg.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="TestTM.cpp" />
-    <ClCompile Include="TestTMDlg.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="TestTM.rc" />
+    <ResourceCompile Include="Notepad.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\TestTM.rc2" />
+    <None Include="res\Notepad.rc2" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\TestTM.ico" />
+    <Image Include="res\Notepad.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties RESOURCE_FILE="TestTM.rc" />
+      <UserProperties RESOURCE_FILE="Notepad.rc" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

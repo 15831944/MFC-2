@@ -3,6 +3,8 @@
 #include "TestTMDlg.h"
 #include "afxdialogex.h"
 
+#include "MyTime.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -87,7 +89,7 @@ void CTestTMDlg::OnBnClickedGetTime()
 
 void CTestTMDlg::OnBnClickedButton2()
 {
-	CTime time = CTime::GetCurrentTime();
+	CMyTime time = CMyTime::GetCurrentTime();
 
 	CString str;
 	str.Format(_T("%d年%d月%d日 %d:%d:%d"), 
@@ -105,6 +107,12 @@ void CTestTMDlg::OnBnClickedButton3()
 	str.Format(_T("%d年%d月%d日 %d:%d:%d"),
 		tms.tm_year + 1900, tms.tm_mon + 1, tms.tm_mday, tms.tm_hour, tms.tm_min, tms.tm_sec);
 	AfxMessageBox(str);
+	
+	GetDlgItemText(IDC_TIME_YEAR, str);
+	SetDlgItemText(IDC_TIME_YEAR, str);
+	GetDlgItem(IDC_TIME_YEAR)->EnableWindow(FALSE);
+	
+	//GetDlgItem(IDC_TIME_YEAR)->SetFocus();
 }
 
 
@@ -112,8 +120,8 @@ void CTestTMDlg::OnBnClickedButton3()
 
 void CTestTMDlg::OnBnClickedButton4()
 {
-	CTime time(2015, 12, 31, 19, 58, 55);
-
+	CMyTime time(2018, 12, 31, 19, 58, 55);
+	//time.GetAsSystemTime
 	CString str;
 	str.Format(_T("%d年%d月%d日 %d:%d:%d"),
 		time.GetYear(), time.GetMonth(), time.GetDay(), time.GetHour(), time.GetMinute(), time.GetSecond());

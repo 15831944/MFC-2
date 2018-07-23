@@ -18,10 +18,10 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TestTM.h">
+    <ClInclude Include="Notepad.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="TestTMDlg.h">
+    <ClInclude Include="NotepadDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
@@ -33,36 +33,30 @@
     <ClInclude Include="Resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="MyTime.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TestTM.cpp">
+    <ClCompile Include="Notepad.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="TestTMDlg.cpp">
+    <ClCompile Include="NotepadDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="MyTime.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="TestTM.rc">
+    <ResourceCompile Include="Notepad.rc">
       <Filter>资源文件</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\TestTM.rc2">
+    <None Include="res\Notepad.rc2">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\TestTM.ico">
+    <Image Include="res\Notepad.ico">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>
