@@ -97,7 +97,17 @@ void CTestTMDlg::OnBnClickedButton2()
 	AfxMessageBox(str);
 }
 
-
+/****************************************************
+	part 1 Edit control设置只读
+		GetDlgItemText(IDC_TIME_YEAR, str);
+		SetDlgItemText(IDC_TIME_YEAR, str);
+		GetDlgItem(IDC_TIME_YEAR)->EnableWindow(FALSE);
+****************************************************/
+/****************************************************
+	part 2 Button按钮设置下陷
+		//CWnd *pWnd = GetDlgItem(IDC_BUTTON1);
+		//pWnd->ModifyStyle(0, BS_AUTOCHECKBOX | BS_PUSHLIKE );
+****************************************************/
 void CTestTMDlg::OnBnClickedButton3()
 {
 	tm tms = { 15, 55, 12, 1, 12 - 1, 2015 - 1900 };
@@ -111,6 +121,9 @@ void CTestTMDlg::OnBnClickedButton3()
 	GetDlgItemText(IDC_TIME_YEAR, str);
 	SetDlgItemText(IDC_TIME_YEAR, str);
 	GetDlgItem(IDC_TIME_YEAR)->EnableWindow(FALSE);
+	
+	//CWnd *pWnd = GetDlgItem(IDC_BUTTON1);
+	//pWnd->ModifyStyle(0, BS_AUTOCHECKBOX | BS_PUSHLIKE );
 	
 	//GetDlgItem(IDC_TIME_YEAR)->SetFocus();
 }

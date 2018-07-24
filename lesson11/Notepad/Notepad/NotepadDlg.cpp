@@ -124,7 +124,20 @@ void CNotepadDlg::OnOnappexit()
 	part 2 抓多文件丢进程序内(只读第一个)
 	TCHAR sFile[256];
 	int nCount = DragQueryFile(hDropInfo, 0, sFile, _countof(sFile));
-
+***************************************************************/
+/***************************************************************
+	part 10 Windows记事本文件的字符串类别:
+		1) ANSI: 
+		2) Unicode: 0x5C 0x75 0x46 0x45 0x46 0x46: 文件开头. 
+					宽字符,包括文字,数字,符号都占两个字节,无重复
+		3) UTF-8: 0xEF 0xBB 0xBF: 文件开头. 
+					单字节字符文本, 并且各国文字统一无重复
+		4) UTF-16: 0xFF 0xFE: 文件开头
+***************************************************************/
+/***************************************************************
+	part 11 file.Read(Conten, _countof(Conten))越界了
+		当read读满_countof(Conten)时,不-1就越界了
+			file.Read(Conten, _countof(Conten) - 1)
 ***************************************************************/
 void CNotepadDlg::OnDropFiles(HDROP hDropInfo)
 {
@@ -132,7 +145,6 @@ void CNotepadDlg::OnDropFiles(HDROP hDropInfo)
 	TCHAR Conten[4096] = { 0 };
 	int nCount = DragQueryFile(hDropInfo, 0, sFile, _countof(sFile));
 	CFile file;
-	
 	if (!file.Open(sFile, CFile::modeRead))
 	{
 		AfxMessageBox(_T("文件不存在!\n"));
@@ -140,11 +152,62 @@ void CNotepadDlg::OnDropFiles(HDROP hDropInfo)
 	}
 	ULONGLONG FileLength = file.GetLength();
 	int nub = 0;
-	while (nub < FileLength)
+
+	nub = file.Read(Conten,8);
+	Conten[nub] = '\0';
+
+	if (Conten[0] == 0x755c && Conten[1] == 0x4546 && Conten[2] == 0x4646)
 	{
-		nub = file.Read(Conten, _countof(Conten));
+
+		while (nub = file.Read(Conten, _countof(Conten) - 1))
+		{
+			Conten[nub] = _T('\0');
+
+		}
+		
 	}
-	SetDlgItemTextW(IDC_TEXT, Conten);
+	else if (Conten[0] == 0xbbef)
+	{
+
+		while (nub = file.Read(Conten, _countof(Conten) - 1))
+		{
+			Conten[nub] = _T('\0');
+
+		}
+	}
+	else if (Conten[0] == 0xfeff)
+	{
+
+		while (nub = file.Read(Conten, _countof(Conten) - 1))
+		{
+			Conten[nub] = _T('\0');			
+		}
+		//获取转换为多字节后需要的缓冲区大小，创建多字节缓冲区
+		UINT nLen = MultiByteToWideChar(CP_UTF8, NULL, strUTF8, -1, NULL, NULL);
+		WCHAR *wszBuffer = new WCHAR[nLen + 1];
+		nLen = MultiByteToWideChar(CP_UTF8, NULL, strUTF8, -1, wszBuffer, nLen);
+		wszBuffer[nLen] = 0;
+
+		nLen = WideCharToMultiByte(936, NULL, wszBuffer, -1, NULL, NULL, NULL, NULL);
+		CHAR *szBuffer = new CHAR[nLen + 1];
+		nLen = WideCharToMultiByte(936, NULL, wszBuffer, -1, szBuffer, nLen, NULL, NULL);
+		szBuffer[nLen] = 0;
+		strUTF8 = szBuffer;
+		//清理内存
+		delete[]szBuffer;
+		delete[]wszBuffer;
+	}
+	else
+	{
+
+		while (nub = file.Read(Conten, _countof(Conten) - 1))
+		{
+			Conten[nub] = _T('\0');
+
+		}
+	}
+	//SetDlgItemText(IDC_TEXT, str);
+	SetDlgItemText(IDC_TEXT, Conten);
 	file.Close();
 	CDialogEx::OnDropFiles(hDropInfo);
 }
