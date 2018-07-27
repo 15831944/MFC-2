@@ -1,0 +1,136 @@
+
+
+
+//46个字节
+二维码生成:分4段
+{
+		1)	Https://su1010.cn				//明文
+		2)	类型: i/k/p							//明文
+		3)	版本:1010								//明文
+		4)	基本信息 + 企业私有			//加密
+
+}
+
+//22个字节
+4)基本信息 + 企业私有	:												
+{
+		base64转换:
+		{
+				3DES公钥加密:
+				{
+						//8个字节
+						基本信息:									
+						{
+								//4个字节, 企业ID，转换成网络字节序 
+								企业ID:0020602001			
+								
+								//4个字节, 产生二维码时间，转换成网络字节序 
+								日期:2017-6-2 9:39:30									
+								时间6个字节压缩成4个字节
+								{
+										//6个字节
+										struct zhw_datetime
+										{
+										    BYTE Year;   /* 相对于2015(DCF_YEAR_BEGIN)的减量 */
+										    BYTE Month;
+										    BYTE Day;
+										    BYTE Hour;
+										    BYTE Minute;
+										    BYTE Second;
+										};				
+										//4个字节						
+										union zhwdt_
+										{
+											BYTE by4[4];
+											DWORD dwValue;
+											struct zhwdt_bit
+											{
+												BYTE bDayH2 : 2;bit
+												BYTE Year : 6;bit
+										
+												BYTE bDayL3 : 3;bit
+												BYTE Hour : 5;bit
+										
+												BYTE bMonthH2 : 2;bit
+												BYTE Minute : 6;bit
+										
+												BYTE bMonthL2 : 2;bit
+												BYTE Second : 6;bit
+											}bits;
+										};
+								}
+								
+						}	
+				}
+		
+				3DES私钥加密:
+				{
+						//8个字节
+						企业私有:									
+						{
+								4字节转换成网络字节序:
+								{
+										//12bit
+										设备编号:1~4096
+										
+										//20bit
+										随机码:0~999999
+								}
+								
+								4字节转换成网络字节序:
+								{
+										//12bit
+										ctrl:
+										{
+												...
+										}
+										
+										//20bit
+										流水号:从随机值开始
+								}
+
+						}
+				}
+		}
+}
+
+//12bit
+ctrl:
+{
+		
+		#define QRC_HEAD 3
+		//验证码类型 3bit 支持8种类型
+		#define QRC_UNKOWN	0			//旧版本不确定
+		#define QRC_NULL	  1			//无验证码
+		#define QRC_LOCAL   2			//产线生成验证码
+		#define QRC_BSS     3			//BSS生成单独验证码
+		#define QRC_BSS_URL 4			//BSS生成URL验证码
+		
+		
+		union qr_ctrl
+		{
+				DWORD	dwV;
+				struct
+				{
+						DWORD	bit_seq:20;		//随机值
+						DWORD bit_res:7;		//保留
+						DWORD bit_vct:3;		//验证码类型:verify code type
+						DWORD bit_flag:2; 	//头部11
+				}detail;
+		}
+		
+}
+Example:
+    qr_ctrl qrc;
+    qrc.dwV = 0;
+    qrc.detail.bit_flag = QRC_HEAD;
+
+    if (是否需要验证码)
+    {
+        qrc.detail.bit_vct = QRC_BSS;
+    }
+    else
+    {
+        qrc.detail.bit_vct = QRC_NULL;
+    }
+    qrc.detail.bit_seq = m_seqid & 0xfffff;

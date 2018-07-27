@@ -51,4 +51,7 @@ public:
 	afx_msg void OnEditUndo();
 	afx_msg void OnEditSelectAll();
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	void ReadUTF8(CFile& file);
+	void ReadUTF16(CFile& file);
+	void ReadASCII(CFile& file);
 };

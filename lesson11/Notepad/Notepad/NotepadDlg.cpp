@@ -138,7 +138,7 @@ void CNotepadDlg::OnOnappexit()
 	part 11 file.Read(Conten, _countof(Conten))越界了
 		当read读满_countof(Conten)时,不-1就越界了
 			file.Read(Conten, _countof(Conten) - 1)
-***************************************************************/
+
 void CNotepadDlg::OnDropFiles(HDROP hDropInfo)
 {
 	TCHAR sFile[256];
@@ -211,7 +211,140 @@ void CNotepadDlg::OnDropFiles(HDROP hDropInfo)
 	file.Close();
 	CDialogEx::OnDropFiles(hDropInfo);
 }
+***************************************************************/
+void UTF8toANSI(LPSTR buf)
+{
+	//获取转换为多字节后需要的缓冲区大小，创建多字节缓冲区
+	UINT nLen = MultiByteToWideChar(CP_UTF8, NULL, buf, -1, NULL, NULL);
+	WCHAR *wszBuffer = new WCHAR[nLen + 1];
+	nLen = MultiByteToWideChar(CP_UTF8, NULL, buf, -1, wszBuffer, nLen);
+	wszBuffer[nLen] = 0;
 
+	nLen = WideCharToMultiByte(936, NULL, wszBuffer, -1, NULL, NULL, NULL, NULL);
+	CHAR *szBuffer = new CHAR[nLen + 1];
+	nLen = WideCharToMultiByte(936, NULL, wszBuffer, -1, szBuffer, nLen, NULL, NULL);
+	szBuffer[nLen] = 0;
+	buf = szBuffer;
+	//清理内存
+	delete[]szBuffer;
+	delete[]wszBuffer;
+}
+
+void CNotepadDlg::ReadASCII(CFile& file)
+{
+	file.Seek(0, CFile::begin);
+	char buf[1024];
+	UINT nRet = 0;
+	CString str;
+	while (nRet = file.Read(buf, sizeof(buf) - 1))
+	{
+		buf[nRet] = '\0';
+		str += buf;
+	}
+	SetDlgItemText(IDC_TEXT, str);
+}
+/***************************************************************
+	part 12 文件读取位置设定
+		file.Seek(3, CFile::begin);//从第三个字节读取
+***************************************************************/
+/***************************************************************
+	part 13 ACSII转UTF8
+		MultiByteToWideChar(CP_UTF8, NULL, buf, -1, sText, _countof(sText))
+
+void CNotepadDlg::ReadUTF8(CFile& file)
+{
+	file.Seek(3, CFile::begin);
+	char buf[1024];
+	TCHAR sText[513];
+	UINT nRet = 0;
+	CString str;
+	while (nRet = file.Read(buf, sizeof(buf) - 1))
+	{
+		buf[nRet] = '\0';
+		UINT nLen = MultiByteToWideChar(CP_UTF8, NULL, buf, -1, sText, _countof(sText));
+		str += sText;
+	}
+	SetDlgItemText(IDC_TEXT, str);
+}
+***************************************************************/
+/***************************************************************
+	part 14 上边一段一段的读取文本,
+		中间有断开,就有肯能有一个字节(文本可能双字节)的传进去,
+		使整个文本读码位置错开
+***************************************************************/
+/***************************************************************
+	part 15 求文本内容的长度
+		LONGLONG nRet = file.GetLength();
+		NEW 一个内容长度的空间,进行一次性存放,排除字节错文的风险
+***************************************************************/
+void CNotepadDlg::ReadUTF8(CFile& file)
+{
+	file.Seek(3, CFile::begin);
+	LONGLONG nRet = file.GetLength();
+
+	char *p = new char[nRet + 2];
+	memset(p, 0, nRet + 2);
+
+	nRet = file.Read(p, nRet);
+	p[nRet] = '\0';
+	TCHAR *pText = new TCHAR[nRet + 2];
+	memset(pText, 0, nRet + 2);
+
+	UINT nLen = MultiByteToWideChar(CP_UTF8, NULL, p, -1, pText, nRet + 2);
+
+	SetDlgItemText(IDC_TEXT, pText);
+	delete[]p;
+	delete[]pText;
+}
+/***************************************************************
+	part 16 UTF16不需要转换,因为当前就是UTF16(熟称Unicode)
+		
+***************************************************************/
+/***************************************************************
+	part 17 注意file.GetLength();长度
+		GetLength()返回的是字节长度
+		Unicode是双字节的, new TCHAR[nRet / 2];
+		尾部双字节的空间pText[nRet / 2] = '\0';
+
+***************************************************************/
+void CNotepadDlg::ReadUTF16(CFile& file)
+{
+	file.Seek(2, CFile::begin);
+	ULONGLONG nRet = file.GetLength(); 
+	TCHAR *pText = new TCHAR[nRet / 2 + 2];
+
+	nRet = file.Read(pText, nRet);
+
+	pText[nRet / 2] = '\0';
+	SetDlgItemText(IDC_TEXT, pText);
+
+	delete[]pText;
+}
+
+void CNotepadDlg::OnDropFiles(HDROP hDropInfo)
+{
+	TCHAR sFile[256];
+	int nCount = DragQueryFile(hDropInfo, 0, sFile, _countof(sFile));
+	CFile file;
+	if (!file.Open(sFile, CFile::modeRead))
+	{
+		AfxMessageBox(_T("打开文件失败!"));
+		return;
+	}
+	if (file.Read(sFile, 2) == 2)
+	{
+		switch (sFile[0])
+		{
+		case 0xbbef:
+			ReadUTF8(file);
+			return;
+		case 0xfeff:
+			ReadUTF16(file);
+			return;
+		}
+	}
+	ReadASCII(file);
+}
 
 void CNotepadDlg::OnAppAbout()
 {
@@ -369,3 +502,5 @@ BOOL CNotepadDlg::PreTranslateMessage(MSG* pMsg)
 	}
 	return CDialogEx::PreTranslateMessage(pMsg);
 }
+
+
