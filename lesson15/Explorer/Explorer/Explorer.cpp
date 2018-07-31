@@ -1,24 +1,26 @@
 #include "stdafx.h"
-#include "non-modalDlg.h"
-#include "non-modalDlgDlg.h"
+#include "Explorer.h"
+#include "ExplorerDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
-BEGIN_MESSAGE_MAP(CnonmodalDlgApp, CWinApp)
+
+BEGIN_MESSAGE_MAP(CExplorerApp, CWinApp)
 	ON_COMMAND(ID_HELP, &CWinApp::OnHelp)
 END_MESSAGE_MAP()
 
-CnonmodalDlgApp::CnonmodalDlgApp()
+CExplorerApp::CExplorerApp()
 {
 	m_dwRestartManagerSupportFlags = AFX_RESTART_MANAGER_SUPPORT_RESTART;
 }
 
-CnonmodalDlgApp theApp;
+CExplorerApp theApp;
 
-BOOL CnonmodalDlgApp::InitInstance()
+BOOL CExplorerApp::InitInstance()
 {
-	CnonmodalDlgDlg dlg;
+	
+	CExplorerDlg dlg;
 	m_pMainWnd = &dlg;
 	INT_PTR nResponse = dlg.DoModal();
 

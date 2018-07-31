@@ -53,6 +53,7 @@ BOOL CnonmodalDlgDlg::OnInitDialog()
 	CDialogEx::OnInitDialog();
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
+
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -137,7 +138,9 @@ void CnonmodalDlgDlg::OnBnClickedButton3()
 
 /*********************************************************
 	part 8 获取主程序地址
-	1) 
+	1) AfxGetMainWnd(),获取当前的窗口()
+	2) theApp.m_pMainWnd; 如果当前没有 m_pMainWnd = &dlg; 
+		我们可以用AfxGetMainWnd()或this获取当前窗口
 *********************************************************/
 void CnonmodalDlgDlg::OnBnClickedButton4()
 {
