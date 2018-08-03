@@ -18,10 +18,10 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TestCWinApp.h">
+    <ClInclude Include="TestRegistryKey.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="TestCWinAppDlg.h">
+    <ClInclude Include="TestRegistryKeyDlg.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
@@ -35,10 +35,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TestCWinApp.cpp">
+    <ClCompile Include="TestRegistryKey.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="TestCWinAppDlg.cpp">
+    <ClCompile Include="TestRegistryKeyDlg.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
@@ -46,20 +46,20 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="TestCWinApp.rc">
+    <ResourceCompile Include="TestRegistryKey.rc">
       <Filter>资源文件</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\TestCWinApp.rc2">
-      <Filter>资源文件</Filter>
-    </None>
-    <None Include="res\1.cur">
+    <None Include="res\TestRegistryKey.rc2">
       <Filter>资源文件</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\TestCWinApp.ico">
+    <Image Include="res\TestRegistryKey.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\123.bmp">
       <Filter>资源文件</Filter>
     </Image>
   </ItemGroup>

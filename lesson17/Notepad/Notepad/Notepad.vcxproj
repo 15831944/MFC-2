@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{55D5FCF4-8C08-45A6-B138-EDD121D338A7}</ProjectGuid>
-    <RootNamespace>TestCWinApp</RootNamespace>
+    <ProjectGuid>{8417047F-2799-4B3E-AD2F-D56E9595602C}</ProjectGuid>
+    <RootNamespace>Notepad</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
     <Keyword>MFCProj</Keyword>
   </PropertyGroup>
@@ -90,7 +90,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -185,38 +185,39 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AboutDlg.h" />
+    <ClInclude Include="Notepad.h" />
+    <ClInclude Include="NotepadDlg.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="TestCWinApp.h" />
-    <ClInclude Include="TestCWinAppDlg.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AboutDlg.cpp" />
+    <ClCompile Include="Notepad.cpp" />
+    <ClCompile Include="NotepadDlg.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="TestCWinApp.cpp" />
-    <ClCompile Include="TestCWinAppDlg.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="TestCWinApp.rc" />
+    <ResourceCompile Include="Notepad.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\1.cur" />
-    <None Include="res\TestCWinApp.rc2" />
+    <None Include="res\Notepad.rc2" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\TestCWinApp.ico" />
+    <Image Include="res\Notepad.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties RESOURCE_FILE="TestCWinApp.rc" />
+      <UserProperties RESOURCE_FILE="Notepad.rc" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
