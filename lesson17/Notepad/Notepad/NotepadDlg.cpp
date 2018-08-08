@@ -107,9 +107,9 @@ BOOL CNotepadDlg::OnInitDialog()
 	rect.bottom = theApp.GetProfileInt(_T("RECT"), _T("BOTTOM"), 0);
 	MoveWindow(rect, FALSE);
 
-	CString str;
-	str = theApp.GetProfileString(_T("SETING"), _T("CAPTION"), 0);
-	SetWindowText(str);
+	//CString str;
+	//str = theApp.GetProfileString(_T("SETING"), _T("CAPTION"), 0);
+	//SetWindowText(str);
 
 
 	LPBYTE pData = NULL;
@@ -167,15 +167,38 @@ void CNotepadDlg::OnCancel()
 
 void CNotepadDlg::OnClose()
 {
-	EndDialog(IDCANCEL);
+	
 	//CDialogEx::OnClose();
+	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_TEXT);
+	//m_path = GetLongPathName();
+	if (pEdit->GetModify())
+	{
+		int nRet = AfxMessageBox(_T("ÊÇ·ñ½«¸ü¸Ä±£´æµ½.."), MB_YESNOCANCEL);
+		if (nRet == IDCANCEL)
+		{
+			return;
+		}
+		else if (nRet == IDYES)
+		{
+			if (m_path.IsEmpty())
+				OnFileSaveAs();
+			else
+				OnFileSave();
+		}
+		else
+		{
+			return;
+		}
+	}
+	EndDialog(IDCANCEL);
 }
 
 
 
 void CNotepadDlg::OnOnappexit()
 {
-	EndDialog(IDCANCEL);
+	//EndDialog(IDCANCEL);
+	OnClose();
 }
 
 
@@ -454,7 +477,7 @@ void CNotepadDlg::OnFormatFont()
 }
 
 /************************************************
-part 7 ×Ô¶¯²¹³äÎÄ¼þÀàÐÍ | Ä¬ÈÏËÑË÷*.txt | Ä¬ÈÏÖ¸¶¨Ä¿Â¼ | ´ò¿ªÎÄ¼þ·ç¸ñ(ÎÄ¼þ´æÔÚ/ÎÄ¼þ¶àÑ¡)
+part 10 ×Ô¶¯²¹³äÎÄ¼þÀàÐÍ | Ä¬ÈÏËÑË÷*.txt | Ä¬ÈÏÖ¸¶¨Ä¿Â¼ | ´ò¿ªÎÄ¼þ·ç¸ñ(ÎÄ¼þ´æÔÚ/ÎÄ¼þ¶àÑ¡)
 	1) CFileDialog dlg(TRUE, _T("txt"), _T("*.txt"));
 	2) CFileDialog dlg(TRUE, _T("txt"), _T("C:\\"));
 	3) CFileDialog dlg(TRUE, _T("txt"), NULL, OFN_FILEMUSTEXIST | OFN_ALLOWMULTISELECT);
@@ -464,18 +487,18 @@ part 7 ×Ô¶¯²¹³äÎÄ¼þÀàÐÍ | Ä¬ÈÏËÑË÷*.txt | Ä¬ÈÏÖ¸¶¨Ä¿Â¼ | ´ò¿ªÎÄ¼þ·ç¸ñ(ÎÄ¼þ´æÔÚ/Î
 		GetNextPathName();
 ************************************************/
 /************************************************
-part 8 »ñÈ¡ÎÄ¼þÂ·¾¶
+part 11 »ñÈ¡ÎÄ¼þÂ·¾¶
 	1) GetPathName();
 ************************************************/
 /************************************************
-part 9 ÎÄ¼þ´ò¿ª¹ýÂËÆ÷
+part 12 ÎÄ¼þ´ò¿ª¹ýÂËÆ÷
 	1) LPCTSTR szFilter = _T("ÎÄ±¾ÎÄ¼þ(*.txt)|*.txt|Chart Files (*.xlc)|*.xlc|Worksheet Files (*.xls)|*.xls|Data Files (*.xlc;*.xls)|*.xlc; *.xls|ËùÓÐÎÄ¼þ (*.*)|*.*||");
 	2) CFileDialog dlg(TRUE, _T("txt"), NULL, 0, szFilter);
 ************************************************/
 
 void CNotepadDlg::OnFileOpen()
 {
-	LPCTSTR szFilter = _T("ÎÄ±¾ÎÄ¼þ(*.txt)|*.txt|Chart Files (*.xlc)|*.xlc|Worksheet Files (*.xls)|*.xls|Data Files (*.xlc;*.xls)|*.xlc; *.xls|ËùÓÐÎÄ¼þ (*.*)|*.*||");
+	LPCTSTR szFilter = _T("ÎÄ±¾ÎÄ¼þ(*.txt)|*.txt|´úÂëÎÄ¼þ (*.h; *.c; *.cpp)|*.h; *.c; *.cpp|Worksheet Files (*.xls)|*.xls|Data Files (*.xlc;*.xls)|*.xlc; *.xls|ËùÓÐÎÄ¼þ (*.*)|*.*||");
 
 	//CFileDialog dlg(TRUE);
 	CFileDialog dlg(TRUE, _T("txt"), NULL, 0, szFilter);
@@ -490,11 +513,14 @@ void CNotepadDlg::LoadFile(LPCTSTR sFile)
 
 	TCHAR sData[4];
 	CFile file;
+	
 	if (!file.Open(sFile, CFile::modeRead))
 	{
 		AfxMessageBox(_T("´ò¿ªÎÄ¼þÊ§°Ü!"));
 		return;
 	}
+	m_path = file.GetFilePath();
+	SetTitle(sFile);
 	if (file.Read(sData, 2) == 2)
 	{
 		switch (sData[0])
@@ -508,6 +534,7 @@ void CNotepadDlg::LoadFile(LPCTSTR sFile)
 		}
 	}
 	ReadASCII(file);
+	
 }
 
 void CNotepadDlg::OnFileNew()
@@ -515,17 +542,65 @@ void CNotepadDlg::OnFileNew()
 	// TODO: ÔÚ´ËÌí¼ÓÃüÁî´¦Àí³ÌÐò´úÂë
 }
 
-
+/********************************************************
+part 13 CFileDialog dlg;±£´æÊôÐÔ
+	1) OFN_OVERWRITEPROMPT
+	CFileDialog dlg(TRUE, _T("txt"), NULL, OFN_OVERWRITEPROMPT, szFilter);
+********************************************************/
 void CNotepadDlg::OnFileSave()
 {
-	// TODO: ÔÚ´ËÌí¼ÓÃüÁî´¦Àí³ÌÐò´úÂë
+	if (m_path.IsEmpty())
+	{
+		OnFileSaveAs();
+	}
+	else
+	{
+		CString str;
+		GetDlgItemText(IDC_TEXT, str);
+		CFile file;
+		if (!file.Open(m_path, CFile::modeWrite))
+		{
+			AfxMessageBox(_T("±£´æÊ§°Ü!\n"));
+		}
+		TCHAR s = 0xfeff;
+		file.Write(&s, sizeof(s));
+		file.Write(str, str.GetLength() * sizeof(TCHAR));
+		file.Close();
+	}
 }
 
 
 void CNotepadDlg::OnFileSaveAs()
 {
-	// TODO: ÔÚ´ËÌí¼ÓÃüÁî´¦Àí³ÌÐò´úÂë
+	LPCTSTR szFilter = _T("ÎÄ±¾ÎÄ¼þ(*.txt)|*.txt|´úÂëÎÄ¼þ (*.h; *.c; *.cpp)|*.h; *.c; *.cpp|Worksheet Files (*.xls)|*.xls|Data Files (*.xlc;*.xls)|*.xlc; *.xls|ËùÓÐÎÄ¼þ (*.*)|*.*||");
+
+	//CFileDialog dlg(TRUE);
+	CFileDialog dlg(TRUE, _T("txt"), NULL, OFN_OVERWRITEPROMPT, szFilter);
+	if (dlg.DoModal() == IDCANCEL)
+		return;
+	CString str;
+	GetDlgItemText(IDC_TEXT, str);
+	CFile file;
+	if (!file.Open(dlg.GetPathName(), CFile::modeCreate | CFile::modeWrite))
+	{
+		AfxMessageBox(_T("±£´æÊ§°Ü!\n"));
+	}
+	TCHAR s = 0xfeff;
+	file.Write(&s, sizeof(s));
+	file.Write(str, str.GetLength() * sizeof(TCHAR));
+	file.Close();
 }
 
 
 
+
+
+void CNotepadDlg::SetTitle(CString szFile)
+{
+	int i = szFile.ReverseFind(_T('\\'));
+	if (i >= 0)
+	{
+		szFile = szFile.Mid(i + 1);
+	}
+	SetWindowText(szFile + _T(" - ¼ÇÊÂ±¾"));
+}

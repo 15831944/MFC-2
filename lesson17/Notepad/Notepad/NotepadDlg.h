@@ -10,6 +10,7 @@ class CNotepadDlg : public CDialogEx
 {
 public:
 	CFont m_font;
+	CString m_path;
 // 构造
 public:
 	CNotepadDlg(CWnd* pParent = NULL);	// 标准构造函数
@@ -63,4 +64,5 @@ public:
 	afx_msg void OnFileSave();
 	afx_msg void OnFileSaveAs();
 	void LoadFile(LPCTSTR sFile);
+	void SetTitle(CString szFile);
 };

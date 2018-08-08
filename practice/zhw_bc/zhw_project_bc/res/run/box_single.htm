@@ -1,0 +1,196 @@
+﻿<HTML>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style type="text/css">
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+       .paas_top .shrinks:hover {
+            background: #008000;
+        }
+        .magnifys:hover 
+        {
+            background: #008000;
+        }
+        .typeface {
+            color: white;
+            font-weight:800
+        }
+        .typefaces {
+            color: black;
+            
+        }
+    </style>
+</head>
+<script type="text/javascript">
+    var OnOffStates = 0;
+    function OnOffState() {  //联网成功
+        if (OnOffStates == 0) {
+            //alert('执行第一次操作');
+            document.getElementById('states_img').src = "file:///C:/Users/Administrator/Desktop/Demo/zhw_bc/zhw_bc/zhw_project_bc/res/png/online.png";
+            document.getElementById('start_img').src = "file:///C:/Users/Administrator/Desktop/Demo/zhw_bc/zhw_bc/zhw_project_bc/res/png/start.png";
+			document.getElementById('start_header').style.background = "#048E04";
+			
+            OnOffStates = 1;   //
+        }
+    }
+    function OnOff() {   //联网失败
+        if (OnOffStates == 0) {
+        alert('网络连接失败,请检查网络设置，再重新连接');
+     }
+    }
+
+    //开始事件(联网状态下) （停止按钮关闭状态）
+    var OnOffStart = 0;
+    function OnButtonRun() {
+        var OnOffStop = 1;
+        if (OnOffStop == 1) {   //停止为1
+            document.getElementById('start_img').src = "file:///C:/Users/Administrator/Desktop/Demo/zhw_bc/zhw_bc/zhw_project_bc/res/png/but_start_ok.png";
+            document.getElementById('stop_img').src = "file:///C:/Users/Administrator/Desktop/Demo/zhw_bc/zhw_bc/zhw_project_bc/res/png/stop_ok.png";
+            document.getElementById("paas_headers").style.background = "url(file:///C:/Users/Administrator/Desktop/Demo/zhw_bc/zhw_bc/zhw_project_bc/res/gif/head.gif)";
+			
+			document.getElementById('start_header').style.background = "#6CAF6C";
+			document.getElementById('stop_header').style.background = "#ED704F";
+            // 隐藏几个文本
+            document.getElementById('sc_ctask').style.visibility="hidden";
+            document.getElementById('sc_gds_name').style.visibility="hidden";
+            document.getElementById("sc_gds_guige").style.visibility="hidden";
+            document.getElementById("sc_ctask_cd").style.visibility="hidden";
+			document.getElementById("sc_boxs_guige").style.visibility="hidden";
+            OnOffStart = 1;
+            
+        }
+    }
+    //停止事件(联网状态下) （开始按钮关闭状态）
+    var OnOffStop = 0;
+    function OnButtonStop() {
+        if (OnOffStart == 1) {  //开始为 1  
+            document.getElementById('stop_img').src = "file:///C:/Users/Administrator/Desktop/Demo/zhw_bc/zhw_bc/zhw_project_bc/res/png/stop.png";
+			
+            document.getElementById('start_img').src = "file:///C:/Users/Administrator/Desktop/Demo/zhw_bc/zhw_bc/zhw_project_bc/res/png/start.png";
+            document.getElementById("paas_headers").style.background = "url(file:///C:/Users/Administrator/Desktop/Demo/zhw_bc/zhw_bc/zhw_project_bc/res/png/head.png)";
+			
+			document.getElementById('start_header').style.background = "#048E04";
+			document.getElementById('stop_header').style.background = "#E29687";
+			
+            OnOffStart = 1;
+            OnOffStop = 1;
+            document.getElementById('sc_ctask').style.visibility="visible";
+            document.getElementById('sc_gds_name').style.visibility="visible";
+            document.getElementById("sc_gds_guige").style.visibility="visible";
+            document.getElementById("sc_ctask_cd").style.visibility="visible";
+			 document.getElementById("sc_boxs_guige").style.visibility="visible";
+			
+        }
+    }
+    function func1() {
+        var shrink = document.getElementById("prompt_img");
+        shrink.style.background = "#008000";
+    }
+    function func2() {
+        var shrink = document.getElementById("prompt_img");
+        shrink.style.background = "";
+    }
+    function func3() {
+        var shrink = document.getElementById("shrink");
+        shrink.style.background="#008000";
+    }
+    function func4() {
+        var shrink = document.getElementById("shrink");
+        shrink.style.background = "";
+    }
+</script>
+<body>
+    <div style="width:1020px;height:655px;margin:0px auto;" id="paas_header">
+        <!-- 头部 -->
+        <div style="width:1020px;height:152px;margin:0px auto;float:right;background:url(file:///C:/Users/Administrator/Desktop/Demo/zhw_bc/zhw_bc/zhw_project_bc/res/png/head.png);background-repeat:no-repeat;" class="paas_header" id="paas_headers">
+            <div style="float:right;width:60px;" class="paas_top">
+                <button style="width:30px;height:30px;float:right;text-align:center;line-height:30px;color:white;cursor:hand;border:none;background: none;" class="shrinks" id="shrink" onclick="external.oncancel();"  onmouseover = "func3()"  onmouseout = "func4()" ><span style="font-size:16px">X</span></button>
+                <button style="width:30px;height:30px;float:right;text-align:center;line-height:30px;color:white;cursor:hand;border:none;background: none;" onclick="external.prompts();" onmouseover = "func1()"  onmouseout = "func2()" class="magnifys" id="prompt_img">
+                    <span style="font-size:30px">-</span>
+                </button>
+            </div>
+            <div style="width:49%;margin-top:7%;margin-left:1%;line-height:30px;height:10%;float:left">
+                <div>
+                    <span style="letter-spacing:4px;text-indent:12px;" class="typeface" id="sc_ctask">生产任务:</span>
+                </div>
+                <div style="margin-top:2%">
+                    <span style="letter-spacing:4px;text-indent:12px" class="typeface" id="sc_gds_name">商品名称:</span>
+                </div>
+            </div>
+            <div style="width:40%;margin-top:0.5%;margin-left:5%;line-height:30px;height:10%;float:right">
+			   <div>
+                    <span style="letter-spacing:4px;text-indent:12px" class="typeface" id="sc_boxs_guige">箱子规格:</span>
+                </div> <!---->
+                <div style="margin-top:2%">
+                    <span style="letter-spacing:4px;text-indent:12px" class="typeface" id="sc_gds_guige">商品规格:</span>
+                </div>
+                <div style="margin-top:2%">
+                    <span style="letter-spacing:4px;text-indent:12px" class="typeface" id="sc_ctask_cd">任务编码:</span>
+                </div>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+        <div style="clear:both"></div>
+        <!-- 程序运行部分 -->
+        <div style="height:420px; border:1px solid green;background:#E3EBE3">
+            <!-- 字体展示部分 -->
+            <div style="margin-top:32%;width:100%;height:30%;">
+                <div style="width:60%;line-height:30px;height:10%;float:left;margin-top:6%;margin-left:7px">
+                    <div style="float:left;">
+                        <div>
+                            <span style="letter-spacing:4px;text-indent:12px" class="typefaces">箱码总量(个):</span>
+                        </div>                                               
+                    </div>
+                    <div style="float:left;margin-left:30%">
+                        <div>
+                            <span style="letter-spacing:4px;text-indent:12px" class="typefaces">单品总量(个):</span>
+                        </div>                        
+                    </div>
+                </div>
+                <div style="width:29%;line-height:30px;height:10%;float:left;margin-top:5%;margin-left:-10px">
+                    <div style="width:100%;line-height:30px;height:10%;float:left;margin-top:4%">
+                        <div>
+                            <span style="letter-spacing:4px;text-indent:12px" class="typefaces">当前箱单品量(个):</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="width:100%;line-height:30px;height:10%;float:left;margin-top:1%;margin-left:7px">
+                    <span style="letter-spacing:4px;text-indent:12px" class="typefaces">生产任务详述:</span>
+                </div>
+            </div>            
+        </div>
+
+
+
+        <!-- 页面底部 -->
+        <div style="border:0px solid red;margin-top:0px;height:50px">
+            <div style="float:left;">
+                <span class="state">
+                    <img src="file:///C:/Users/Administrator/Desktop/Demo/zhw_bc/zhw_bc/zhw_project_bc/res/png/offonline.png" alt="和服务器的通信状态" onclick="external.states()" id="states_img" ondragstart="return false">
+                </span>
+            </div>
+            <div style="float:left;">
+                <span>
+                    <img src="file:///C:/Users/Administrator/Desktop/Demo/zhw_bc/zhw_bc/zhw_project_bc/res/png/allright.png" alt="企业生产线赋码系统" style="" ondragstart="return false">
+                </span>
+            </div>
+            <div style="float:right;text-align:center;width:236px;">
+                <div style="background:#E29687;width:40%;float:left;" id="stop_header" >
+                    <span style="">
+                        <img src="file:///C:/Users/Administrator/Desktop/Demo/zhw_bc/zhw_bc/zhw_project_bc/res/png/stop.png" alt="点击可以停止赋码" id="stop_img" onclick="external.stops()" style="height:46px" ondragstart="return false">
+                    </span>
+                </div>
+                <div style="width:60%;float:right;width:60%;height:46px;background:#6CAF6C;" id="start_header">
+                    <span style="">
+                        <img src="file:///C:/Users/Administrator/Desktop/Demo/zhw_bc/zhw_bc/zhw_project_bc/res/png/but_start_ok.png" alt="连接服务器后，选择生产任务后再启动工作" style="width:100%;height:100%" id="start_img" onclick="external.starts()" ondragstart="return false">
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</HTML>

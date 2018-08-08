@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=gb2312" /> 
+	<title>链接</title>
+	<style>
+	body{
+	margin:0px;
+	padding:0px;
+	}
+	.shrinks:hover {
+            background: #008000;
+        }
+	.popup_header{
+		background:url(file:///C:/Users/Administrator/Desktop/Demo/zhw_soft/run/bc_work/res/png/conNet_bg.png);
+		background-repeat:no-repeat;
+		width:800px;
+		height:400px;
+		/*border: 1px solid red;*/
+		
+		position:absolute; 
+		top:0px;
+		left:0px;
+	}
+	.popup_top{
+		float: right;
+		/*border: 1px solid yellow;*/
+		margin-top:8px;
+		margin-right:8px; 
+		color: white;
+		font-size: 25px;
+		cursor:hand;
+	}
+	.popup_middle{
+		width: 788px;
+		height: 334px;
+		/*border: 1px solid blue;*/
+		margin-left:6px;
+		margin-top:60px;
+		background:white;
+	}
+	.typeface{
+		font-size: 20px;
+	}
+	.popup_bottom_2{
+	
+		width:30%;
+		float:right;
+		position:absolute;
+		right:6px;bottom:2px;
+	}
+	</style>
+</head>
+<script type="text/javascript">
+  function  UnconnectedNetWork(){
+       var Prompting = document.getElementById('Prompting_language');
+       Prompting.style.display="block";	   
+  }
+</script>
+
+<body>
+	<div style="" class="popup_header" id="header_head">
+		<div class="popup_top" style="">
+			<button style="width:30px;height:30px;float:right;text-align:center;line-height:30px;color:white;cursor:hand;border:none;background: none;" class="shrinks" id="shrink" onclick="external.quit();"  onmouseover = "func3()"  onmouseout = "func4()" ><span style="font-size:16px">X</span></button>
+		</div>
+		<div class="popup_middle" style="border:1px solid black">
+			<div  class="popup_bottom_1">
+
+				<div style="width:50%;height:334px;float:left;padding-left:30px">
+
+					<div style="margin-top:80px">
+
+                        <span style="letter-spacing:4px;text-indent:12px" class="typeface">通信地址&nbsp;</span>:&nbsp;
+
+                    </div>
+
+                    <div style="margin-top:56px">
+
+                         <span style="letter-spacing:15px;text-indent:12px" class="typeface">用户名</span><span style="margin-left:14px">:</span>&nbsp;
+
+                    </div>
+
+				</div>
+
+				<div style="width:45%;height:250px;float:right">
+
+					<div style="margin-top:80px">
+
+                        <span style="letter-spacing:4px;text-indent:12px" class="typeface">通信端口&nbsp;</span>:&nbsp;
+
+                    </div>
+
+                    <div style="margin-top:56px">
+
+                        <span style="letter-spacing:50px;text-indent:12px" class="typeface">密码</span><span style="margin-left:14px">:&nbsp;</span>
+
+                    </div>
+
+				</div>
+
+			</div>
+			<div style=" float:left;color:red;margin-left:-51%;margin-top:285px;font-size:20px;display:none;font-weight:bold" id="Prompting_language">
+					>>连接超时，请联系网管确认服务器状态或网络连接信息!
+			</div>
+			<div class="popup_bottom_2">
+			    
+				<div style="float:right">
+					<img src="file:///C:/Users/Administrator/Desktop/Demo/zhw_soft/run/bc_work/res/png/conNet_quit.png" alt="" id="quit_img" onclick="external.quits()">
+				</div>
+				<div style="float:right">
+					<img src="file:///C:/Users/Administrator/Desktop/Demo/zhw_soft/run/bc_work/res/png/conNet_connect.png" alt="" id="connect_img" onclick="external.connects()">
+				</div>
+				
+			</div>
+		</div>
+		
+	</div>
+</body>
+</html>
