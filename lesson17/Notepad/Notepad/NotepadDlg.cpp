@@ -11,6 +11,7 @@ CNotepadDlg::CNotepadDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(IDD_NOTEPAD_DIALOG, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+	m_change = TRUE;
 	
 }
 
@@ -99,6 +100,7 @@ part 9 内存申请监督
 BOOL CNotepadDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
+	pEdit = (CEdit*)GetDlgItem(IDC_TEXT);
 
 	CRect rect;
 	rect.left = theApp.GetProfileInt(_T("RECT"), _T("LEFT"), 0);
@@ -165,32 +167,50 @@ void CNotepadDlg::OnCancel()
 	//CDialogEx::OnCancel();
 }
 
+BOOL CNotepadDlg::CheckModify()
+{
+	
+	if (pEdit->GetModify())
+	{
+		if (m_change == TRUE)
+		{
+			int nRet = AfxMessageBox(_T("是否将更改保存到.."), MB_YESNOCANCEL);
+			if (nRet == IDCANCEL)
+			{
+				return 2;
+			}
+			else if (nRet == IDYES)
+			{
+				if (m_path.IsEmpty())
+				{
+					OnFileSaveAs();
+					return TRUE;
+				}
+					
+				else
+				{
+					OnFileSave();
+					return TRUE;
+				}
+			}
+			else
+			{
+				return FALSE;
+			}
+		}
+
+	}
+	return FALSE;
+}
+
+
 void CNotepadDlg::OnClose()
 {
 	
-	//CDialogEx::OnClose();
-	CEdit* pEdit = (CEdit*)GetDlgItem(IDC_TEXT);
-	//m_path = GetLongPathName();
-	if (pEdit->GetModify())
-	{
-		int nRet = AfxMessageBox(_T("是否将更改保存到.."), MB_YESNOCANCEL);
-		if (nRet == IDCANCEL)
-		{
-			return;
-		}
-		else if (nRet == IDYES)
-		{
-			if (m_path.IsEmpty())
-				OnFileSaveAs();
-			else
-				OnFileSave();
-		}
-		else
-		{
-			return;
-		}
-	}
-	EndDialog(IDCANCEL);
+	if (CheckModify() == 2)
+		return;
+	else
+		EndDialog(IDCANCEL);
 }
 
 
@@ -507,6 +527,7 @@ void CNotepadDlg::OnFileOpen()
 	CString szFile = dlg.GetPathName();
 	CFile file;
 	LoadFile(szFile);
+	
 }
 void CNotepadDlg::LoadFile(LPCTSTR sFile)
 {
@@ -520,6 +541,7 @@ void CNotepadDlg::LoadFile(LPCTSTR sFile)
 		return;
 	}
 	m_path = file.GetFilePath();
+	m_change = TRUE;
 	SetTitle(sFile);
 	if (file.Read(sData, 2) == 2)
 	{
@@ -539,7 +561,14 @@ void CNotepadDlg::LoadFile(LPCTSTR sFile)
 
 void CNotepadDlg::OnFileNew()
 {
-	// TODO: 在此添加命令处理程序代码
+	if (CheckModify() == 2)
+		return;
+	else
+	{
+		m_path.Empty();
+		GetDlgItem(IDC_TEXT)->SetWindowText(_T(""));
+		m_change = FALSE;
+	}
 }
 
 /********************************************************
@@ -567,6 +596,7 @@ void CNotepadDlg::OnFileSave()
 		file.Write(str, str.GetLength() * sizeof(TCHAR));
 		file.Close();
 	}
+	m_change = FALSE;
 }
 
 
@@ -589,6 +619,8 @@ void CNotepadDlg::OnFileSaveAs()
 	file.Write(&s, sizeof(s));
 	file.Write(str, str.GetLength() * sizeof(TCHAR));
 	file.Close();
+
+	m_change = FALSE;
 }
 
 
@@ -602,5 +634,11 @@ void CNotepadDlg::SetTitle(CString szFile)
 	{
 		szFile = szFile.Mid(i + 1);
 	}
+	else
+		szFile = m_path;
+	if (szFile.IsEmpty())
+		szFile = _T("无标题");
 	SetWindowText(szFile + _T(" - 记事本"));
 }
+
+

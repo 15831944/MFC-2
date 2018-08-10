@@ -11,6 +11,7 @@ class CNotepadDlg : public CDialogEx
 public:
 	CFont m_font;
 	CString m_path;
+	CEdit* pEdit;
 // 构造
 public:
 	CNotepadDlg(CWnd* pParent = NULL);	// 标准构造函数
@@ -27,6 +28,7 @@ public:
 // 实现
 protected:
 	HICON m_hIcon;
+	BOOL m_change;
 
 	// 生成的消息映射函数
 	virtual BOOL OnInitDialog();
@@ -65,4 +67,5 @@ public:
 	afx_msg void OnFileSaveAs();
 	void LoadFile(LPCTSTR sFile);
 	void SetTitle(CString szFile);
+	BOOL CheckModify();
 };
