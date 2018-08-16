@@ -19,6 +19,7 @@ class CWorksApp : public CWinApp
 {
 public:
 	CWorksApp();
+	SAdmin m_Admin;
 
 // ÖØÐ´
 public:

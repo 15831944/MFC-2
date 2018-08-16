@@ -3,6 +3,8 @@
 #include "WorksDlg.h"
 #include "afxdialogex.h"
 
+#include "InputDlg.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -97,6 +99,7 @@ BOOL CWorksDlg::OnInitDialog()
 	pList->SetTextColor(RGB(0, 0, 255));
 	pList->SetExtendedStyle(LVS_EX_AUTOCHECKSELECT | LVS_EX_CHECKBOXES | LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES |LVS_EX_DOUBLEBUFFER);
 	
+	free(pList);
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -133,6 +136,7 @@ HCURSOR CWorksDlg::OnQueryDragIcon()
 ***********************************************************/
 void CWorksDlg::OnBnClickedWorkLookup()
 {
+
 	CFile file;
 	CFileException error;
 	if (!file.Open(_T("./data/WorksData.dat"), CFile::modeRead, &error))
@@ -158,7 +162,7 @@ void CWorksDlg::OnBnClickedWorkLookup()
 		pList->SetItemText(m_Row, 3, str);
 		++m_Row;
 	}
-
+	free(pList);
 }
 
 
@@ -198,6 +202,7 @@ BOOL CWorksDlg::CheckNumber(LPCTSTR str)
 		}
 		++i;
 	}
+	free(pList);
 	return TRUE;
 }
 
@@ -218,6 +223,8 @@ BOOL CWorksDlg::CheckNumber(LPCTSTR str)
 ***********************************************************/
 void CWorksDlg::OnBnClickedWorkAdd()
 {
+	CInputDlg dlg;
+	dlg.DoModal();
 	CListCtrl *pList = (CListCtrl*)GetDlgItem(IDC_LIST);
 	int row = pList->GetItemCount();
 	int i = 0;
@@ -250,6 +257,7 @@ void CWorksDlg::OnBnClickedWorkAdd()
 	pList->SetItemText(row, 2, wage);
 	pList->SetItemText(row, 3, date);
 	m_bModify = TRUE;
+	free(pList);
 }
 
 
@@ -317,7 +325,7 @@ void CWorksDlg::OnBnClickedWorkDele()
 		}
 		m_bModify = TRUE;
 	}
-
+	free(pList);
 }
 
 
@@ -365,7 +373,7 @@ void CWorksDlg::OnBnClickedWorkModify()
 		}
 		m_bModify = TRUE;
 	}
-
+	free(pList);
 }
 
 void CWorksDlg::FileError(int error)
@@ -456,6 +464,7 @@ void CWorksDlg::OnBnClickedWorkSave()
 	}
 	file.Close();
 	m_bModify = FALSE;
+	free(pList);
 }
 
 

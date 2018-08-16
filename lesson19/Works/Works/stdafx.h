@@ -52,3 +52,9 @@
 #endif
 
 
+struct SAdmin
+{
+	TCHAR sName[16];
+	TCHAR sPass[16];
+	int nPrior;
+};
